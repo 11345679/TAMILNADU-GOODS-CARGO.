@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TAMILNADU GOODS CARGO</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 0; background: #f5f5f5;
+  }
+  header {
+    background: #004080; color: white; padding: 10px;
+    text-align: center; font-size: 24px; font-weight: bold;
+  }
+  section {
+    padding: 15px; max-width: 900px; margin: 10px auto;
+    background: white; border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h2 {
+    margin-top: 0; color: #004080;
+  }
+  label {
+    display: block; margin: 8px 0 4px;
+  }
+  input[type="text"], input[type="password"], input[type="number"], select, textarea {
+    width: 100%; padding: 8px; box-sizing: border-box;
+    border: 1px solid #ccc; border-radius: 4px;
+  }
+  button {
+    background: #004080; color: white; border: none;
+    padding: 10px 15px; margin: 10px 0; cursor: pointer;
+    border-radius: 4px; font-size: 16px;
+  }
+  button:hover {
+    background: #003060;
+  }
+  table {
+    width: 100%; border-collapse: collapse; margin: 10px 0;
+  }
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  th, td {
+    padding: 8px; text-align: left;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .error {
+    color: red; margin: 5px 0;
+  }
+  .success {
+    color: green; margin: 5px 0;
+  }
+  .status-Pending {
+    color: orange;
+    font-weight: bold;
+  }
+  .status-Assigned {
+    color: blue;
+    font-weight: bold;
+  }
+  .status-InTransit {
+    color: purple;
+    font-weight: bold;
+  }
+  .status-Delivered {
+    color: green;
+    font-weight: bold;
+  }
+  nav {
+    background: #004080; padding: 8px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  nav button {
+    background: white; color: #004080; border: 1px solid white;
+    font-weight: bold; padding: 8px 12px;
+    flex-grow: 1; max-width: 180px;
+  }
+  nav button.active, nav button:hover {
+    background: #003060; color: white; border-color: #003060;
+  }
+  /* Scroll for tables */
+  table tbody {
+    max-height: 300px;
+    overflow-y: auto;
+    display: block;
+  }
+  table thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+</style>
+</head>
+<body>
+<header>TAMILNADU GOODS CARGO</header>
+
+<audio id="bg-music" loop autoplay volume="0.1" style="display:none">
+  <source src="https://cdn.pixabay.com/download/audio/2021/09/02/audio_4e3e07e932.mp3?filename=gentle-melody-13731.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+<!-- LOGIN and SIGNUP -->
+<section id="login-section">
+  <h2>Login</h2>
+  <div id="login-msg" class="error hidden"></div>
+  <label>Username:</label>
+  <input type="text" id="login-username" autocomplete="username" />
+  <label>Password:</label>
+  <input type="password" id="login-password" autocomplete="current-password" />
+  <button id="login-btn">Login</button>
+  <p>Don't have an account? <button id="show-signup-btn">Sign Up</button></p>
+</section>
+
+<section id="signup-section" class="hidden">
+  <h2>Sign Up</h2>
+  <div id="signup-msg" class="error hidden"></div>
+  <label>Full Name:</label>
+  <input type="text" id="signup-name" />
+  <label>Username:</label>
+  <input type="text" id="signup-username" autocomplete="username" />
+  <label>Password:</label>
+  <input type="password" id="signup-password" autocomplete="new-password" />
+  <label>Confirm Password:</label>
+  <input type="password" id="signup-password-confirm" autocomplete="new-password" />
+  <label>Role:</label>
+  <select id="signup-role">
+    <option value="customer">Customer</option>
+    <option value="driver">Driver</option>
+  </select>
+  <button id="signup-btn">Sign Up</button>
+  <p>Already have an account? <button id="show-login-btn">Login</button></p>
+</section>
+
+<!-- CUSTOMER DASHBOARD -->
+<section id="customer-dashboard" class="hidden">
+  <nav>
+    <button id="nav-booking" class="active">New Booking</button>
+    <button id="nav-bookings-list">My Bookings</button>
+    <button id="nav-track-parcel">Track Parcel</button>
+    <button id="nav-feedback">Feedback & Rating</button>
+    <button id="nav-profile-customer">Profile</button>
+    <button id="customer-logout-btn">Logout</button>
+  </nav>
+
+  <!-- New Booking -->
+  <div id="booking-section-customer">
+    <h2>New Parcel Booking</h2>
+    <div id="booking-msg" class="error hidden"></div>
+
+    <label>From (Origin):</label>
+    <input type="text" id="booking-from" placeholder="Enter origin location" />
+
+    <label>To (Destination):</label>
+    <input type="text" id="booking-to" placeholder="Enter destination location" />
+
+    <label>Parcel Description:</label>
+    <textarea id="parcel-desc" rows="3"></textarea>
+
+    <label>Weight:</label>
+    <input type="number" id="weight" min="0.1" step="0.1" />
+
+    <label>Units:</label>
+    <select id="weight-units">
+      <option value="kg">Kilograms (kg)</option>
+      <option value="g">Grams (g)</option>
+      <option value="lb">Pounds (lb)</option>
+    </select>
+
+    <label>Category:</label>
+    <select id="category">
+      <option value="">--Select Category--</option>
+      <option value="with_bill">WITH BILL</option>
+      <option value="without_bill">WITHOUT BILL</option>
+    </select>
+
+    <p>Price per kg: <span id="price-per-kg">₹0.00</span></p>
+    <p>Total Price: ₹<span id="total-price-display">0.00</span></p>
+
+    <button id="submit-booking-btn">Submit Booking</button>
+    <p>For any support, call: <b>9811401468</b></p>
+    <p>Head Office: <b>AG-7 SANJAY GANDHI TRANSPORT NAGAR</b></p>
+  </div>
+
+  <!-- My Bookings -->
+  <div id="bookings-list-section" class="hidden">
+    <h2>My Bookings</h2>
+    <table id="customer-bookings-table">
+      <thead>
+        <tr>
+          <th>Parcel ID</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Description</th>
+          <th>Weight</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Driver</th>
+          <th>Booking Date</th>
+          <th>Driver Assigned Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Track Parcel -->
+  <div id="track-parcel-section" class="hidden">
+    <h2>Track Parcel</h2>
+    <label>Enter Parcel ID:</label>
+    <input type="text" id="track-parcel-id" />
+    <button id="track-parcel-btn">Track</button>
+    <div id="track-result" style="margin-top:10px;"></div>
+  </div>
+
+  <!-- Feedback & Rating -->
+  <div id="feedback-section" class="hidden">
+    <h2>Feedback & Rating</h2>
+    <div id="feedback-msg" class="error hidden"></div>
+    <label>Select Delivered Parcel:</label>
+    <select id="feedback-parcel-select">
+      <option value="">--Select Parcel--</option>
+    </select>
+    <label>Rating:</label>
+    <div>
+      <label><input type="radio" name="rating" value="1" /> 1 Star</label>
+      <label><input type="radio" name="rating" value="2" /> 2 Stars</label>
+      <label><input type="radio" name="rating" value="3" /> 3 Stars</label>
+      <label><input type="radio" name="rating" value="4" /> 4 Stars</label>
+      <label><input type="radio" name="rating" value="5" /> 5 Stars</label>
+    </div>
+    <label>Comments:</label>
+    <textarea id="feedback-comments" rows="3"></textarea>
+    <button id="submit-feedback-btn">Submit Feedback</button>
+  </div>
+
+  <!-- Profile -->
+  <div id="profile-section-customer" class="hidden">
+    <h2>My Profile</h2>
+    <div id="profile-msg-customer" class="error hidden"></div>
+    <label>Username:</label>
+    <input type="text" id="profile-username-customer" />
+    <label>New Password (leave blank to keep current):</label>
+    <input type="password" id="profile-password-customer" />
+    <label>Confirm New Password:</label>
+    <input type="password" id="profile-password-confirm-customer" />
+    <button id="save-profile-customer-btn">Save Profile</button>
+    <button id="cancel-profile-customer-btn">Cancel</button>
+  </div>
+</section>
+
+<!-- MANAGER DASHBOARD -->
+<section id="manager-dashboard" class="hidden">
+  <nav>
+    <button id="show-all-bookings-btn">All Bookings</button>
+    <button id="show-pricing-btn-manager">Set Prices</button>
+    <button id="show-driver-management-btn">Driver Management</button>
+    <button id="show-feedback-list-btn">Feedback</button>
+    <button id="show-profile-btn-manager">Profile</button>
+    <button id="manager-logout-btn">Logout</button>
+  </nav>
+
+  <!-- All Bookings -->
+  <div id="all-bookings-section">
+    <h2>All Bookings</h2>
+    <table id="all-bookings-table">
+      <thead>
+        <tr>
+          <th>Parcel ID</th>
+          <th>Customer</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Description</th>
+          <th>Weight</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Driver</th>
+          <th>Booking Date</th>
+          <th>Driver Assigned Date</th>
+          <th>Assign Driver</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Pricing Section -->
+  <div id="pricing-section-manager" class="hidden">
+    <h2>Set Price per Kg</h2>
+    <div id="pricing-msg" class="error hidden"></div>
+    <label>Price with Bill (₹ per kg):</label>
+    <input type="number" id="price-with-bill" min="0" step="0.01" />
+    <label>Price without Bill (₹ per kg):</label>
+    <input type="number" id="price-without-bill" min="0" step="0.01" />
+    <button id="save-pricing-btn">Save Prices</button>
+    <button id="cancel-pricing-btn">Cancel</button>
+  </div>
+
+  <!-- Driver Management -->
+  <div id="driver-management-section" class="hidden">
+    <h2>Driver Management</h2>
+    <div id="driver-management-msg" class="error hidden"></div>
+    <table id="drivers-table">
+      <thead>
+        <tr><th>Username</th><th>Name</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <h3>Add New Driver</h3>
+    <label>Username:</label>
+    <input type="text" id="new-driver-username" />
+    <label>Name:</label>
+    <input type="text" id="new-driver-name" />
+    <label>Password:</label>
+    <input type="password" id="new-driver-password" />
+    <button id="add-driver-btn">Add Driver</button>
+  </div>
+
+  <!-- Feedback List -->
+  <div id="feedback-list" class="hidden">
+    <h2>Customer Feedback</h2>
+    <button id="close-feedback-list-btn">Close</button>
+    <table id="feedback-table">
+      <thead>
+        <tr><th>Parcel ID</th><th>Customer</th><th>Rating</th><th>Comments</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p>Average Rating: <span id="average-rating">-</span> / 5</p>
+  </div>
+
+  <!-- Manager Profile -->
+  <div id="profile-section-manager" class="hidden">
+    <h2>My Profile</h2>
+    <div id="profile-msg-manager" class="error hidden"></div>
+    <label>Username:</label>
+    <input type="text" id="profile-username-manager" />
+    <label>New Password (leave blank to keep current):</label>
+    <input type="password" id="profile-password-manager" />
+    <label>Confirm New Password:</label>
+    <input type="password" id="profile-password-confirm-manager" />
+    <button id="save-profile-manager-btn">Save Profile</button>
+    <button id="cancel-profile-manager-btn">Cancel</button>
+  </div>
+</section>
+
+<!-- DRIVER DASHBOARD -->
+<section id="driver-dashboard" class="hidden">
+  <nav>
+    <button id="show-driver-bookings-btn">My Deliveries</button>
+    <button id="show-profile-btn-driver">Profile</button>
+    <button id="driver-logout-btn">Logout</button>
+  </nav>
+
+  <!-- Driver Bookings -->
+  <div id="driver-bookings-section">
+    <h2>My Assigned Deliveries</h2>
+    <table id="driver-bookings-table">
+      <thead>
+        <tr>
+          <th>Parcel ID</th>
+          <th>Description</th>
+          <th>Weight</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Update Status</th>
+          <th>Booking Date</th>
+          <th>Driver Assigned Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Driver Profile -->
+  <div id="profile-section-driver" class="hidden">
+    <h2>My Profile</h2>
+    <div id="profile-msg-driver" class="error hidden"></div>
+    <label>Username:</label>
+    <input type="text" id="profile-username-driver" />
+    <label>New Password (leave blank to keep current):</label>
+    <input type="password" id="profile-password-driver" />
+    <label>Confirm New Password:</label>
+    <input type="password" id="profile-password-confirm-driver" />
+    <button id="save-profile-driver-btn">Save Profile</button>
+    <button id="cancel-profile-driver-btn">Cancel</button>
+  </div>
+</section>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  // Storage keys
+  const USERS_KEY = 'tg_users';
+  const BOOKINGS_KEY = 'tg_bookings';
+  const PRICES_KEY = 'tg_prices';
+  const FEEDBACKS_KEY = 'tg_feedbacks';
+
+  let currentUser = null;
+
+  // Load/save helpers
+  function loadUsers() {
+    return JSON.parse(localStorage.getItem(USERS_KEY) || '{}');
+  }
+  function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  }
+  function loadBookings() {
+    return JSON.parse(localStorage.getItem(BOOKINGS_KEY) || '[]');
+  }
+  function saveBookings(bookings) {
+    localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
+  }
+  function loadPrices() {
+    return JSON.parse(localStorage.getItem(PRICES_KEY) || '{"with_bill":30,"without_bill":25}');
+  }
+  function savePrices(prices) {
+    localStorage.setItem(PRICES_KEY, JSON.stringify(prices));
+  }
+  function loadFeedbacks() {
+    return JSON.parse(localStorage.getItem(FEEDBACKS_KEY) || '[]');
+  }
+  function saveFeedbacks(feedbacks) {
+    localStorage.setItem(FEEDBACKS_KEY, JSON.stringify(feedbacks));
+  }
+
+  // Initialize default manager
+  function initDefaultManager() {
+    let users = loadUsers();
+    if (!users['ashrafali']) {
+      users['ashrafali'] = {username:'ashrafali', password:'ASHRAF123', role:'manager', name:'Ashraf Ali'};
+      saveUserssaveUsers(users);
+    }
+  }
+
+  // Utility: format date
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleString();
+  }
+
+  // Calculate price per kg in ₹
+  function calculatePricePerKg(category, prices) {
+    return category === 'with_bill' ? prices.with_bill : prices.without_bill;
+  }
+
+  // Convert input weight to kilograms
+  function convertToKg(weight, unit) {
+    if (unit === 'kg') return weight;
+    if (unit === 'g') return weight / 1000;
+    if (unit === 'lb') return weight * 0.453592;
+    return weight; // default fallback
+  }
+
+  // Show and hide sections
+  function showSection(sections, idToShow) {
+    sections.forEach(s => {
+      if (s.id === idToShow) s.classList.remove('hidden');
+      else s.classList.add('hidden');
+    });
+  }
+
+  // Clear child elements of an element
+  function clearChildren(element) {
+    while(element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  }
+
+  // Generate unique parcel ID
+  function generateParcelId() {
+    return 'P' + Date.now() + Math.floor(Math.random() * 1000);
+  }
+
+  // LOGIN and SIGNUP handlers
+  function setupAuth() {
+    const users = loadUsers();
+
+    // Show/hide login/signup
+    $('show-signup-btn').onclick = () => {
+      $('login-section').classList.add('hidden');
+      $('signup-section').classList.remove('hidden');
+      clearMessages();
+    };
+    $('show-login-btn').onclick = () => {
+      $('signup-section').classList.add('hidden');
+      $('login-section').classList.remove('hidden');
+      clearMessages();
+    };
+
+    // Login
+    $('login-btn').onclick = () => {
+      clearMessages();
+      const username = $('login-username').value.trim().toLowerCase();
+      const password = $('login-password').value;
+      if (!username || !password) {
+        showError('login-msg', 'Enter both username and password.');
+        return;
+      }
+      const users = loadUsers();
+      if (!users[username] || users[username].password !== password) {
+        showError('login-msg', 'Invalid username or password.');
+        return;
+      }
+      currentUser = users[username];
+      startUserSession();
+    };
+
+    // Signup
+    $('signup-btn').onclick = () => {
+      clearMessages();
+      const name = $('signup-name').value.trim();
+      const username = $('signup-username').value.trim().toLowerCase();
+      const password = $('signup-password').value;
+      const confirmPassword = $('signup-password-confirm').value;
+      const role = $('signup-role').value;
+
+      if (!name || !username || !password || !confirmPassword) {
+        showError('signup-msg', 'All fields are required.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        showError('signup-msg', 'Passwords do not match.');
+        return;
+      }
+      let users = loadUsers();
+      if (users[username]) {
+        showError('signup-msg', 'Username already exists.');
+        return;
+      }
+      users[username] = {username, password, role, name};
+      saveUsers(users);
+      alert('Signup successful! Please login.');
+      $('signup-section').classList.add('hidden');
+      $('login-section').classList.remove('hidden');
+    };
+  }
+
+  function clearMessages() {
+    ['login-msg','signup-msg','booking-msg','feedback-msg','pricing-msg','driver-management-msg','profile-msg-customer','profile-msg-manager','profile-msg-driver'].forEach(id => {
+      $(id).classList.add('hidden');
+      $(id).textContent = '';
+    });
+  }
+
+  function showError(id, msg) {
+    $(id).textContent = msg;
+    $(id).classList.remove('hidden');
+  }
+
+  // Start session after login
+  function startUserSession() {
+    clearMessages();
+    $('login-section').classList.add('hidden');
+    $('signup-section').classList.add('hidden');
+    if (currentUser.role === 'customer') {
+      $('customer-dashboard').classList.remove('hidden');
+      loadCustomerDashboard();
+    } else if (currentUser.role === 'driver') {
+      $('driver-dashboard').classList.remove('hidden');
+      loadDriverDashboard();
+    } else if (currentUser.role === 'manager') {
+      $('manager-dashboard').classList.remove('hidden');
+      loadManagerDashboard();
+    }
+    // Start background music
+    const bgMusic = $('bg-music');
+    if (bgMusic) {
+      bgMusic.volume = 0.1;
+      bgMusic.play().catch(() => {});
+    }
+  }
+
+  // Logout for all roles
+  function setupLogoutButtons() {
+    $('customer-logout-btn').onclick = logout;
+    $('driver-logout-btn').onclick = logout;
+    $('manager-logout-btn').onclick = logout;
+  }
+  function logout() {
+    currentUser = null;
+    // Pause music
+    const bgMusic = $('bg-music');
+    if (bgMusic) {
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+    }
+    hideAllDashboards();
+    $('login-section').classList.remove('hidden');
+    clearMessages();
+    clearInputs();
+  }
+
+  function hideAllDashboards() {
+    ['customer-dashboard','driver-dashboard','manager-dashboard'].forEach(id => {
+      $(id).classList.add('hidden');
+    });
+  }
+
+  function clearInputs() {
+    document.querySelectorAll('input,textarea,select').forEach(i => {
+      if (i.type !== 'button' && i.type !== 'submit') {
+        i.value = '';
+      }
+      if(i.type === 'radio') i.checked = false;
+    });
+  }
+
+  // CUSTOMER DASHBOARD FUNCTIONS
+  function loadCustomerDashboard() {
+    setupCustomerNav();
+    loadPricesForCustomer();
+    setupBookingFormEvents();
+    loadCustomerBookings();
+    setupTrackParcel();
+    setupFeedback();
+    setupCustomerProfile();
+  }
+
+  // Customer Navigation tabs
+  function setupCustomerNav() {
+    const sections = [
+      $('booking-section-customer'),
+      $('bookings-list-section'),
+      $('track-parcel-section'),
+      $('feedback-section'),
+      $('profile-section-customer'),
+    ];
+    $('nav-booking').onclick = () => {
+      showSection(sections, 'booking-section-customer');
+      setActiveNavButton('nav-booking');
+    };
+    $('nav-bookings-list').onclick = () => {
+      showSection(sections, 'bookings-list-section');
+      setActiveNavButton('nav-bookings-list');
+      loadCustomerBookings();
+    };
+    $('nav-track-parcel').onclick = () => {
+      showSection(sections, 'track-parcel-section');
+      setActiveNavButton('nav-track-parcel');
+      $('track-result').textContent = '';
+      $('track-parcel-id').value = '';
+    };
+    $('nav-feedback').onclick = () => {
+      showSection(sections, 'feedback-section');
+      setActiveNavButton('nav-feedback');
+      populateFeedbackParcelSelect();
+    };
+    $('nav-profile-customer').onclick = () => {
+      showSection(sections, 'profile-section-customer');
+      setActiveNavButton('nav-profile-customer');
+      loadProfileForCustomer();
+    };
+  }
+
+  function setActiveNavButton(buttonId) {
+    document.querySelectorAll('nav button').forEach(btn => {
+      if (btn.id === buttonId) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  }
+
+  // Load prices to display price per kg dynamically
+  function loadPricesForCustomer() {
+    const prices = loadPrices();
+    function updatePrice() {
+      const cat = $('category').value;
+      const weight = parseFloat($('weight').value);
+      const unit = $('weight-units').value;
+      if (!cat || !weight || weight <= 0) {
+        $('price-per-kg').textContent = '₹0.00';
+        $('total-price-display').textContent = '0.00';
+        return;
+      }
+      const pricePerKg = calculatePricePerKg(cat, prices);
+      $('price-per-kg').textContent = `₹${pricePerKg.toFixed(2)}`;
+      const weightKg = convertToKg(weight, unit);
+      const totalPrice = pricePerKg * weightKg;
+      $('total-price-display').textContent = totalPrice.toFixed(2);
+    }
+
+    $('category').onchange = updatePrice;
+    $('weight').oninput = updatePrice;
+    $('weight-units').onchange = updatePrice;
+  }
+
+  // Booking form submit
+  function setupBookingFormEvents() {
+    $('submit-booking-btn').onclick = () => {
+      clearMessages();
+      const from = $('booking-from').value.trim();
+      const to = $('booking-to').value.trim();
+      const description = $('parcel-desc').value.trim();
+      const weight = parseFloat($('weight').value);
+      const unit = $('weight-units').value;
+      const category = $('category').value;
+      if (!from || !to || !description || !weight || weight <= 0 || !category) {
+        showError('booking-msg', 'Please fill all fields correctly.');
+        return;
+      }
+      const prices = loadPrices();
+      const pricePerKg = calculatePricePerKg(category, prices);
+      const weightKg = convertToKg(weight, unit);
+      const totalPrice = pricePerKg * weightKg;
+
+      const bookings = loadBookings();
+      const parcelId = generateParcelId();
+      const now = new Date().toISOString();
+
+      bookings.push({
+        parcelId,
+        customerUsername: currentUser.username,
+        from,
+        to,
+        description,
+        weight: weightKg.toFixed(2),
+        originalWeight: weight.toFixed(2),
+        weightUnit: unit,
+        category,
+        price: totalPrice.toFixed(2),
+        status: 'Pending',
+        driverUsername: null,
+        bookingDate: now,
+        driverAssignedDate: null,
+      });
+
+      saveBookings(bookings);
+      alert(`Booking successful! Your Parcel ID: ${parcelId}`);
+      // Clear form
+      $('booking-from').value = '';
+      $('booking-to').value = '';
+      $('parcel-desc').value = '';
+      $('weight').value = '';
+      $('category').value = '';
+      $('price-per-kg').textContent = '₹0.00';
+      $('total-price-display').textContent = '0.00';
+    };
+  }
+
+  // Load customer bookings table
+  function loadCustomerBookings() {
+    const tbody = $('customer-bookings-table').querySelector('tbody');
+    clearChildren(tbody);
+    const bookings = loadBookings().filter(b => b.customerUsername === currentUser.username);
+    if (bookings.length === 0) {
+      const tr = document.createElement('tr');
+      const td = document.createElement('td');
+      td.colSpan = 11;
+      td.textContent = 'No bookings found.';
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+      return;
+    }
+    bookings.forEach(b => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${b.parcelId}</td>
+        <td>${b.from}</td>
+        <td>${b.to}</td>
+        <td>${b.description}</td>
+        <td>${b.originalWeight} ${b.weightUnit}</td>
+        <td>${b.category === 'with_bill' ? 'WITH BILL' : 'WITHOUT BILL'}</td>
+        <td>₹${b.price}</td>
+        <td class="status-${b.status.replace(' ', '')}">${b.status}</td>
+        <td>${b.driverUsername || '-'}</td>
+        <td>${formatDate(b.bookingDate)}</td>
+        <td>${b.driverAssignedDate ? formatDate(b.driverAssignedDate) : '-'}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Track parcel functionality
+  function setupTrackParcel() {
+    $('track-parcel-btn').onclick = () => {
+      const pid = $('track-parcel-id').value.trim();
+      if (!pid) {
+        alert('Enter a Parcel ID');
+        return;
+      }
+      const bookings = loadBookings();
+      const parcel = bookings.find(b => b.parcelId === pid);
+      if (!parcel) {
+        $('track-result').textContent = 'Parcel ID not found.';
+        return;
+      }
+      $('track-result').innerHTML = `
+        <b>Status:</b> ${parcel.status}<br/>
+        <b>From:</b> ${parcel.from}<br/>
+        <b>To:</b> ${parcel.to}<br/>
+        <b>Description:</b> ${parcel.description}<br/>
+        <b>Weight:</b> ${parcel.originalWeight} ${parcel.weightUnit}<br/>
+        <b>Price:</b> ₹${parcel.price}<br/>
+        <b>Driver:</b> ${parcel.driverUsername || 'Not assigned yet'}<br/>
+        <b>Booking Date:</b> ${formatDate(parcel.bookingDate)}<br/>
+        <b>Driver Assigned Date:</b> ${parcel.driverAssignedDate ? formatDate(parcel.driverAssignedDate) : '-'}
+      `;
+    };
+  }
+
+  // Feedback functionality for customer
+  function setupFeedback() {
+    $('submit-feedback-btn').onclick = () => {
+      clearMessages();
+      const parcelId = $('feedback-parcel-select').value;
+      if (!parcelId) {
+        showError('feedback-msg', 'Select a delivered parcel.');
+        return;
+      }
+      const ratingElems = document.getElementsByName('rating');
+      let rating = null;
+      for (const r of ratingElems) {
+        if (r.checked) {
+          rating = parseInt(r.value);
+          break;
+        }
+      }
+      if (!rating) {
+        showError('feedback-msg', 'Select a rating.');
+        return;
+      }
+      const comments = $('feedback-comments').value.trim();
+
+      let feedbacks = loadFeedbacks();
+      // Check if feedback already submitted for this parcel by this user
+      const existing = feedbacks.find(f => f.parcelId === parcelId && f.customerUsername === currentUser.username);
+      if (existing) {
+        showError('feedback-msg', 'You already submitted feedback for this parcel.');
+        return;
+      }
+
+      feedbacks.push({
+        parcelId,
+        customerUsername: currentUser.username,
+        rating,
+        comments,
+        date: new Date().toISOString(),
+      });
+      saveFeedbacks(feedbacks);
+      alert('Thank you for your feedback!');
+      // Reset form
+      $('feedback-parcel-select').value = '';
+      document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+      $('feedback-comments').value = '';
+    };
+  }
+
+  // Populate feedback parcel dropdown with delivered parcels
+  function populateFeedbackParcelSelect() {
+    const select = $('feedback-parcel-select');
+    clearChildren(select);
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = '--Select Parcel--';
+    select.appendChild(defaultOption);
+
+    const bookings = loadBookings().filter(b => b.customerUsername === currentUser.username && b.status === 'Delivered');
+    bookings.forEach(b => {
+      const opt = document.createElement('option');
+      opt.value = b.parcelId;
+      opt.textContent = `${b.parcelId} - ${b.description}`;
+      select.appendChild(opt);
+    });
+  }
+
+  // Customer Profile
+  function setupCustomerProfile() {
+    $('save-profile-customer-btn').onclick = () => {
+      clearMessages();
+      const username = $('profile-username-customer').value.trim().toLowerCase();
+      const password = $('profile-password-customer').value;
+      const passwordConfirm = $('profile-password-confirm-customer').value;
+
+      if (!username) {
+        showError('profile-msg-customer', 'Username cannot be empty.');
+        return;
+      }
+      if (password !== passwordConfirm) {
+        showError('profile-msg-customer', 'Passwords do not match.');
+        return;
+      }
+      let users = loadUsers();
+      // Check if username change conflicts
+      if (username !== currentUser.username && users[username]) {
+        showError('profile-msg-customer', 'Username already exists.');
+        return;
+      }
+      // Update user
+      delete users[currentUser.username];
+      users[username] = {
+        username,
+        name: currentUser.name,
+        role: currentUser.role,
+        password: password ? password : currentUser.password,
+      };
+      saveUsers(users);
+      currentUser = users[username];
+      alert('Profile updated!');
+    };
+    $('cancel-profile-customer-btn').onclick = () => {
+      loadProfileForCustomer();
+    };
+    loadProfileForCustomer();
+  }
+
+  function loadProfileForCustomer() {
+    $('profile-username-customer').value = currentUser.username;
+    $('profile-password-customer').value = '';
+    $('profile-password-confirm-customer').value = '';
+  }
+
+  // DRIVER DASHBOARD functions
+  function loadDriverDashboard() {
+    setupDriverNav();
+    loadDriverBookings();
+    setupDriverProfile();
+  }
+
+  function setupDriverNav() {
+    const sections = [
+      $('driver-bookings-section'),
+      $('profile-section-driver'),
+    ];
+    $('show-driver-bookings-btn').onclick = () => {
+      showSection(sections, 'driver-bookings-section');
+      loadDriverBookings();
+    };
+    $('show-profile-btn-driver').onclick = () => {
+      showSection(sections, 'profile-section-driver');
+      loadProfileForDriver();
+    };
+  }
+
+  // Load bookings assigned to driver
+  function loadDriverBookings() {
+    const tbody = $('driver-bookings-table').querySelector('tbody');
+    clearChildren(tbody);
+    const bookings = loadBookings().filter(b => b.driverUsername === currentUser.username);
+    if (bookings.length === 0) {
+      const tr = document.createElement('tr');
+      const td = document.createElement('td');
+      td.colSpan = 9;
+      td.textContent = 'No assigned deliveries.';
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+      return;
+    }
+    bookings.forEach(b => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${b.parcelId}</td>
+        <td>${b.description}</td>
+        <td>${b.originalWeight} ${b.weightUnit}</td>
+        <td>${b.category === 'with_bill' ? 'WITH BILL' : 'WITHOUT BILL'}</td>
+        <td>₹${b.price}</td>
+        <td class="status-${b.status.replace(' ', '')}">${b.status}</td>
+        <td>
+          <select data-parcelid="${b.parcelId}" class="status-select">
+            <option value="Pending" ${b.status === 'Pending' ? 'selected' : ''}>Pending</option>
+            <option value="Assigned" ${b.status === 'Assigned' ? 'selected' : ''}>Assigned</option>
+            <option value="In Transit" ${b.status === 'In Transit' ? 'selected' : ''}>In Transit</option>
+            <option value="Delivered" ${b.status=== 'Delivered' ? 'selected' : ''}>Delivered</option>
+          </select>
+        </td>
+        <td>${formatDate(b.bookingDate)}</td>
+        <td>${b.driverAssignedDate ? formatDate(b.driverAssignedDate) : '-'}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Add event listeners to status selects
+    document.querySelectorAll('.status-select').forEach(select => {
+      select.onchange = (e) => {
+        const parcelId = e.target.getAttribute('data-parcelid');
+        const newStatus = e.target.value;
+        let bookings = loadBookings();
+        const index = bookings.findIndex(b => b.parcelId === parcelId);
+        if (index !== -1) {
+          bookings[index].status = newStatus;
+          saveBookings(bookings);
+          loadDriverBookings(); // Refresh
+        }
+      };
+    });
+  }
+
+  // Driver Profile
+  function setupDriverProfile() {
+    $('save-profile-driver-btn').onclick = () => {
+      clearMessages();
+      const username = $('profile-username-driver').value.trim().toLowerCase();
+      const password = $('profile-password-driver').value;
+      const passwordConfirm = $('profile-password-confirm-driver').value;
+
+      if (!username) {
+        showError('profile-msg-driver', 'Username cannot be empty.');
+        return;
+      }
+      if (password !== passwordConfirm) {
+        showError('profile-msg-driver', 'Passwords do not match.');
+        return;
+      }
+      let users = loadUsers();
+      // Check if username change conflicts
+      if (username !== currentUser.username && users[username]) {
+        showError('profile-msg-driver', 'Username already exists.');
+        return;
+      }
+      // Update user
+      delete users[currentUser.username];
+      users[username] = {
+        username,
+        name: currentUser.name,
+        role: currentUser.role,
+        password: password ? password : currentUser.password,
+      };
+      saveUsers(users);
+      currentUser = users[username];
+      alert('Profile updated!');
+    };
+    $('cancel-profile-driver-btn').onclick = () => {
+      loadProfileForDriver();
+    };
+    loadProfileForDriver();
+  }
+
+  function loadProfileForDriver() {
+    $('profile-username-driver').value = currentUser.username;
+    $('profile-password-driver').value = '';
+    $('profile-password-confirm-driver').value = '';
+  }
+
+  // MANAGER DASHBOARD functions
+  function loadManagerDashboard() {
+    setupManagerNav();
+    loadAllBookings();
+    loadPricesForManager();
+    loadDrivers();
+    loadFeedbackList();
+    setupManagerProfile();
+  }
+
+  function setupManagerNav() {
+    const sections = [
+      $('all-bookings-section'),
+      $('pricing-section-manager'),
+      $('driver-management-section'),
+      $('feedback-list'),
+      $('profile-section-manager'),
+    ];
+    $('show-all-bookings-btn').onclick = () => {
+      showSection(sections, 'all-bookings-section');
+    };
+    $('show-pricing-btn-manager').onclick = () => {
+      showSection(sections, 'pricing-section-manager');
+    };
+    $('show-driver-management-btn').onclick = () => {
+      showSection(sections, 'driver-management-section');
+    };
+    $('show-feedback-list-btn').onclick = () => {
+      showSection(sections, 'feedback-list');
+    };
+    $('show-profile-btn-manager').onclick = () => {
+      showSection(sections, 'profile-section-manager');
+    };
+
+    // Close feedback list button
+    $('close-feedback-list-btn').onclick = () => {
+      $('feedback-list').classList.add('hidden');
+      $('all-bookings-section').classList.remove('hidden');
+    };
+  }
+
+  // Load all bookings for manager table
+  function loadAllBookings() {
+    const tbody = $('all-bookings-table').querySelector('tbody');
+    clearChildren(tbody);
+    const bookings = loadBookings();
+    const drivers = loadUsers();
+    if (bookings.length === 0) {
+      const tr = document.createElement('tr');
+      const td = document.createElement('td');
+      td.colSpan = 13;
+      td.textContent = 'No bookings found.';
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+      return;
+    }
+    bookings.forEach(b => {
+      const tr = document.createElement('tr');
+      const driverSelect = document.createElement('select');
+      driverSelect.innerHTML = `<option value="">--Assign Driver--</option>`;
+      for (const u in drivers) {
+        if (drivers[u].role === 'driver') {
+          const opt = document.createElement('option');
+          opt.value = u;
+          opt.textContent = drivers[u].name || u;
+          if (b.driverUsername === u) opt.selected = true;
+          driverSelect.appendChild(opt);
+        }
+      }
+      driverSelect.onchange = (e) => {
+        const driverUsername = e.target.value || null;
+        const parcelId = b.parcelId;
+        let bookings = loadBookings();
+        const idx = bookings.findIndex(x => x.parcelId === parcelId);
+        if (idx !== -1) {
+          bookings[idx].driverUsername = driverUsername;
+          bookings[idx].status = driverUsername ? 'Assigned' : 'Pending';
+          bookings[idx].driverAssignedDate = driverUsername ? new Date().toISOString() : null;
+          saveBookings(bookings);
+          loadAllBookings();
+        }
+      };
+
+      const tdDriverAssign = document.createElement('td');
+      tdDriverAssign.appendChild(driverSelect);
+
+      tr.innerHTML = `
+        <td>${b.parcelId}</td>
+        <td>${b.customerUsername}</td>
+        <td>${b.from}</td>
+        <td>${b.to}</td>
+        <td>${b.description}</td>
+        <td>${b.originalWeight} ${b.weightUnit}</td>
+        <td>${b.category === 'with_bill' ? 'WITH BILL' : 'WITHOUT BILL'}</td>
+        <td>₹${b.price}</td>
+        <td class="status-${b.status.replace(' ', '')}">${b.status}</td>
+        <td>${b.driverUsername || '-'}</td>
+        <td>${formatDate(b.bookingDate)}</td>
+        <td>${b.driverAssignedDate ? formatDate(b.driverAssignedDate) : '-'}</td>
+      `;
+      tr.appendChild(tdDriverAssign);
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Pricing management for manager
+  function loadPricesForManager() {
+    const prices = loadPrices();
+    $('price-with-bill').value = prices.with_bill;
+    $('price-without-bill').value = prices.without_bill;
+
+    $('save-pricing-btn').onclick = () => {
+      clearMessages();
+      const withBill = parseFloat($('price-with-bill').value);
+      const withoutBill = parseFloat($('price-without-bill').value);
+      if (isNaN(withBill) || isNaN(withoutBill) || withBill < 0 || withoutBill < 0) {
+        showError('pricing-msg', 'Enter valid prices.');
+        return;
+      }
+      savePrices({with_bill: withBill, without_bill: withoutBill});
+      alert('Prices updated successfully.');
+    };
+
+    $('cancel-pricing-btn').onclick = () => {
+      loadPricesForManager();
+    };
+  }
+
+  // Driver management for manager
+  function loadDrivers() {
+    const tbody = $('drivers-table').querySelector('tbody');
+    clearChildren(tbody);
+    const users = loadUsers();
+    for (const u in users) {
+      if (users[u].role === 'driver') {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${u}</td>
+          <td>${users[u].name || '-'}</td>
+          <td><button data-username="${u}" class="remove-driver-btn">Remove</button></td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+    document.querySelectorAll('.remove-driver-btn').forEach(btn => {
+      btn.onclick = () => {
+        if (confirm('Remove this driver?')) {
+          const username = btn.getAttribute('data-username');
+          let users = loadUsers();
+          delete users[username];
+          saveUsers(users);
+          loadDrivers();
+        }
+      };
+    });
+  }
+
+  $('add-driver-btn').onclick = () => {
+    clearMessages();
+    const username = $('new-driver-username').value.trim().toLowerCase();
+    const name = $('new-driver-name').value.trim();
+    const password = $('new-driver-password').value;
+    if (!username || !name || !password) {
+      showError('driver-management-msg', 'Fill all fields.');
+      return;
+    }
+    let users = loadUsers();
+    if (users[username]) {
+      showError('driver-management-msg', 'Username already exists.');
+      return;
+    }
+    users[username] = {username, name, password, role:'driver'};
+    saveUsers(users);
+    alert('Driver added.');
+    $('new-driver-username').value = '';
+    $('new-driver-name').value = '';
+    $('new-driver-password').value = '';
+    loadDrivers();
+  };
+
+  // Feedback list for manager
+  function loadFeedbackList() {
+    const tbody = $('feedback-table').querySelector('tbody');
+    clearChildren(tbody);
+    const feedbacks = loadFeedbacks();
+    if (feedbacks.length === 0) {
+      const tr = document.createElement('tr');
+      const td = document.createElement('td');
+      td.colSpan = 4;
+      td.textContent = 'No feedback found.';
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+      $('average-rating').textContent = '-';
+      return;
+    }
+    let totalRating = 0;
+    feedbacks.forEach(f => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${f.parcelId}</td>
+        <td>${f.customerUsername}</td>
+        <td>${f.rating}</td>
+        <td>${f.comments || '-'}</td>
+      `;
+      tbody.appendChild(tr);
+      totalRating += f.rating;
+    });
+    $('average-rating').textContent = (totalRating / feedbacks.length).toFixed(2);
+  }
+
+  // Manager profile
+  function setupManagerProfile() {
+    $('save-profile-manager-btn').onclick = () => {
+      clearMessages();
+      const username = $('profile-username-manager').value.trim().toLowerCase();
+      const password = $('profile-password-manager').value;
+      const passwordConfirm = $('profile-password-confirm-manager').value;
+
+      if (!username) {
+        showError('profile-msg-manager', 'Username cannot be empty.');
+        return;
+      }
+      if (password !== passwordConfirm) {
+        showError('profile-msg-manager', 'Passwords do not match.');
+        return;
+      }
+      let users = loadUsers();
+      if (username !== currentUser.username && users[username]) {
+        showError('profile-msg-manager', 'Username already exists.');
+        return;
+      }
+      delete users[currentUser.username];
+      users[username] = {
+        username,
+        name: currentUser.name,
+        role: currentUser.role,
+        password: password ? password : currentUser.password,
+      };
+      saveUsers(users);
+      currentUser = users[username];
+      alert('Profile updated!');
+    };
+    $('cancel-profile-manager-btn').onclick = () => {
+      loadProfileForManager();
+    };
+    loadProfileForManager();
+  }
+
+  function loadProfileForManager() {
+    $('profile-username-manager').value = currentUser.username;
+    $('profile-password-manager').value = '';
+    $('profile-password-confirm-manager').value = '';
+  }
+
+  // Initialize app
+  function init() {
+    initDefaultManager();
+    setupAuth();
+    setupLogoutButtons();
+  }
+
+  init();
+
+})();
+</script>
+
+</body>
+</html>
